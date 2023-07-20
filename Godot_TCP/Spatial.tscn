@@ -1,0 +1,173 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Spatial.gd" type="Script" id=1]
+[ext_resource path="res://target_icon.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/Poppins_Big.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/Poppins-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://frame.png" type="Texture" id=5]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 19.8, 10.8 )
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+flags_transparent = true
+albedo_texture = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.87451, 0.87451, 0.87451, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="DynamicFont" id=6]
+size = 20
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="PlaneMesh" id=7]
+size = Vector2( 6.144, 3.6 )
+
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("ViewportMenu")
+
+[sub_resource type="SpatialMaterial" id=9]
+resource_local_to_scene = true
+flags_transparent = true
+albedo_texture = SubResource( 8 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0 )
+
+[node name="EyeTrackingCanvasMesh" type="MeshInstance" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, -7.748 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1980, 1080 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Control" type="Control" parent="Viewport"]
+margin_right = 1980.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Viewport/Control"]
+margin_right = 200.0
+margin_bottom = 200.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counter" type="Label" parent="Viewport/Control/ColorRect"]
+margin_right = 200.0
+margin_bottom = 200.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "3"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoPanel" type="Panel" parent="Viewport/Control"]
+visible = false
+margin_left = 312.0
+margin_top = 200.0
+margin_right = 712.0
+margin_bottom = 400.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoLabel" type="Label" parent="Viewport/Control/InfoPanel"]
+margin_right = 400.0
+margin_bottom = 200.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Look to the RED BOXES in the corner of the screen."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GazeTarget" type="TextureRect" parent="Viewport/Control"]
+margin_right = 150.0
+margin_bottom = 150.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Viewport/Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 5 )
+
+[node name="MenuMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 5, -5 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 9 )
+
+[node name="ViewportMenu" type="Viewport" parent="."]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Control" type="Control" parent="ViewportMenu"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="ViewportMenu/Control"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ViewportMenu/Control/Panel"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Press SPACE to connect to the server.
+After the start look to the RED BOXES in the corner of the screen, to calibrate eye tracking."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.670206, 0, 0.742175, 0, 1, 0, -0.742175, 0, 0.670206, 0, 0, 0 )
