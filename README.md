@@ -1,7 +1,9 @@
-# VR_Eye_Gaze_Tracking
+# VR Eye Gaze Tracking
 Eye tracking and gaze tracking in virtual space.
 
-Eye tracking technology pros:
+With the help of an ESP32 microcontroller, the resulting images are accessed via a web server by the python image processing algorithm. The algorithm uses a tflite model to process the data and detect the pupil position. From the pupil positions, the gaze coordinate is calculated and displayed in a godot virtual environment.
+
+# Eye tracking technology pros:
 - Visual attention analysis
 - Non-invasive
 - Uses:
